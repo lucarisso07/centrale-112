@@ -1,0 +1,28 @@
+# Runtime locale, mai nel repository
+/work/ai-runtime/
+*.gguf
+*.ggml
+*.key
+*.pem
+*.pfx
+*.p12
+*.log
+*.pid
+centrale-processes.json
+.env
+.env.*
+!.env.example
+
+# Dipendenze, editor e sistema
+node_modules/
+coverage/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivi e file temporanei locali
+*.zip
+*.7z
+*.tmp

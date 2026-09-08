@@ -1,0 +1,4 @@
+# Conserva i byte e i fine-riga della copia originale.
+* -text
+outputs/Centrale112.html linguist-generated=true
+docs/assets/*.svg linguist-documentation=true

@@ -1,0 +1,19 @@
+{
+  "name": "centrale-112",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Videogioco narrativo di gestione delle chiamate 112. Creatore: risso luca.",
+  "author": "risso luca",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node outputs/centrale-server.cjs",
+    "build": "node work/build-v4.cjs",
+    "test": "node scripts/test.cjs",
+    "check:build": "node scripts/check-build.cjs",
+    "verify:original": "node scripts/verify-original.cjs",
+    "test:ai": "node work/test-semantic-live.cjs && node work/test-story-semantic-live.cjs"
+  }
+}
