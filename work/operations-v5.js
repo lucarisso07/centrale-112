@@ -1,0 +1,42 @@
+(function(root){
+  'use strict';
+  const el=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const clock=t=>`${String(21+Math.floor((t||0)/3600)).padStart(2,'0')}:${String(Math.floor((t||0)/60)%60).padStart(2,'0')}:${String(Math.floor(t||0)%60).padStart(2,'0')}`;
+  let game, lastDossier='', lastCase=null;
+  function current(){return game.state.cases.find(c=>c.id===game.state.caseId)}
+  function notify(text){el('toast').textContent=text;el('toast').classList.add('show');clearTimeout(game.state.toastTimer);game.state.toastTimer=setTimeout(()=>el('toast').classList.remove('show'),4500)}
+  function apply(events){const s=game.state;s.commsSeen ||= {};for(const event of events||[]){if(s.commsSeen[event.id])continue;const c=s.cases.find(c=>c.id===event.caseId);if(!c||c.done)continue;s.commsSeen[event.id]=true;const u=s.units.find(u=>u.id===event.unitId),source=event.type==='radio'?(u?.callSign||'Squadra'):'Chiamante';game.learn(c,event.facts||[],source);if(event.type==='radio'&&u){game.radioSay(u,'squadra',event.text);game.say(c,'aggiornamento',event.text.startsWith(source)?event.text:source+' · '+event.text);}else game.say(c,'chiamante',event.text);}}
+  function tick(g,dt){game=g;const s=g.state;if(!s.activeComms)return;if(s.time-(s.lastCommsTick||0)<1)return;s.lastCommsTick=s.time;apply(root.ActiveComms?.tick(s,dt)||[])}
+  function addNote(){const c=current(),input=el('dossier-note');if(!c||!input)return;const text=input.value.trim().slice(0,1200);if(!text)return;c.notes ||= [];c.notes.push({text,time:game.state.time});game.state.dossierDrafts[c.id]='';input.value='';c.revision++;lastDossier='';game.render();game.save();notify('Nota aggiunta al dossier #'+c.id);}
+  function requestUpdate(){const c=current();if(!c||!game.state.started||c.done)return;if(game.state.pending.has('c'+c.id)){notify('Attendi il riscontro della linea prima di chiedere un nuovo aggiornamento.');return;}if(c.lastUpdateRequest!==undefined&&game.state.time-c.lastUpdateRequest<15){notify('Aggiornamento appena richiesto. Lascia tempo alla verifica sul posto.');return;}const events=root.ActiveComms?.requestUpdate(c,game.state)||[];if(!events.length){notify('Apri una linea o assegna una squadra per ricevere un aggiornamento.');return;}c.lastUpdateRequest=game.state.time;apply(events);game.render();game.save();}
+  function briefUnits(){const c=current();if(!c||!game.state.started)return;const units=game.state.units.filter(u=>u.target===c.id);if(!units.length){notify('Assegna almeno un’unità prima di trasmettere il briefing.');return;}const text=root.ActiveComms.brief(c,game.state);for(const u of units){game.radioSay(u,'operatore',text);game.radioSay(u,'squadra',u.callSign+' riceve il briefing. Le informazioni sono condivise con l’equipaggio.');}game.say(c,'sistema','Briefing trasmesso a '+units.map(u=>u.callSign).join(', ')+'.');c.lastBriefing=game.state.time;game.render();game.save();notify('Briefing aggiornato trasmesso a '+units.length+' unità.');}
+  function toggleDossier(){const hidden=document.body.classList.toggle('dossier-closed');el('toggle-dossier').setAttribute('aria-pressed',String(!hidden));game.state.dossierOpen=!hidden;game.fitMap();}
+  function toggleActiveComms(){game.state.activeComms=!game.state.activeComms;notify(game.state.activeComms?'Aggiornamenti spontanei attivi.':'Aggiornamenti spontanei sospesi. Puoi richiederli dal dossier.');game.render();}
+  function render(g){game=g;const s=g.state,c=current();if(!c||!root.CaseDossier)return;s.dossierDrafts ||= {};const panel=el('dossier-panel');if(panel){const key=JSON.stringify([c.id,c.revision,c.facts,c.notes,s.units.filter(u=>u.target===c.id).map(u=>[u.id,u.phase,Math.floor(u.eta/5)]),Math.floor(s.time/10),s.started]);const typing=document.activeElement?.id==='dossier-note';if(key!==lastDossier&&(!typing||lastCase!==c.id)){const scroll=panel.scrollTop;panel.innerHTML=root.CaseDossier.render(c,s);panel.scrollTop=lastCase===c.id?scroll:0;lastDossier=key;lastCase=c.id;}}
+    const instrument=el('call-instrument');if(instrument){const connected=s.tab==='radio'||c.state==='connected';const seconds=c.answeredAt===null?0:Math.max(0,Math.floor(s.time-c.answeredAt));instrument.className='call-instrument '+(connected&&!s.paused?'connected':'');instrument.innerHTML=`<div class="voice-wave" aria-hidden="true">${[8,18,29,15,35,23,11,27,39,19,31,10,23,14,34,21,9,26,17,11].map((h,i)=>`<i style="--h:${h}px;--d:${i*.09}s"></i>`).join('')}</div><div><span>${s.tab==='radio'?'CANALE OPERATIVO':connected?'COLLEGAMENTO ATTIVO':c.done?'EVENTO CONCLUSO':'IN ATTESA DI CONTATTO'}</span><b>${s.tab==='radio'?esc(s.units.find(u=>u.id===s.unitId)?.callSign):`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`}</b></div><button onclick="Game.toggleActiveComms()" aria-pressed="${!!s.activeComms}" title="Aggiornamenti spontanei da linee e squadre">${s.activeComms?'● COM. ATTIVA':'○ COM. MANUALE'}</button>`;}
+  }
+  function estimateRoute(u,c,s){
+    // Keep the current road segment, just as dispatch/nextRoute does.
+    const next=u.path?.[u.pathIndex],anchor=next&&Math.hypot(next.x-u.x,next.y-u.y)>.1?next:u;
+    const route=root.CityMap.route(anchor.x,anchor.y,c.x,c.y,s.blocked);
+    if(!route.length)return null;
+    let distance=Math.hypot(anchor.x-u.x,anchor.y-u.y);
+    for(let i=1;i<route.length;i++)distance+=Math.hypot(route[i].x-route[i-1].x,route[i].y-route[i-1].y);
+    return Math.ceil(distance/22);
+  }
+  function openDispatch(){
+    const c=current(),s=game.state;if(!c)return;
+    const cards=s.units.map(u=>{
+      const free=['Pattugliamento','Disponibile'].includes(u.phase),sameService=s.units.some(v=>v.id!==u.id&&v.target===c.id&&v.type===u.type&&['In viaggio','Sul posto','In attesa'].includes(v.phase));
+      const eta=c.confirmed?estimateRoute(u,c,s):null,disabled=!s.started||!c.confirmed||!free||c.done||sameService||eta===null;
+      const label=u.target===c.id?'Già assegnata':sameService?'Servizio già assegnato':'Assegna all’evento';
+      return '<div class="dispatch-choice">'+root.CityMap.vehicleSVG(u.type)+'<b>'+esc(u.callSign)+'</b><span>'+esc(u.type)+' · '+esc(u.phase)+'</span><small>'+(free&&c.confirmed?(eta===null?'Percorso non disponibile':'Percorso stimato: '+eta+' s'):'Stato equipaggio in tempo reale')+'</small><button class="primary" '+(disabled?'disabled':'')+' onclick="Game.dispatchFromPlan(\''+u.id+'\')">'+label+'</button></div>';
+    }).join('');
+    el('detail-content').innerHTML='<span class="tiny">COORDINAMENTO RISORSE / EVENTO #'+c.id+'</span><h2>Assegna le squadre</h2><p>'+(c.confirmed?esc(c.facts.confirm):'Acquisisci una posizione precisa prima di inviare le unità.')+'</p><div class="dispatch-grid">'+cards+'</div>';
+    if(!el('detail').open)el('detail').showModal();
+  }
+  function dispatchFromPlan(id){const result=game.dispatch(id);notify(result.text);game.render();openDispatch();}
+  function exportDossier(){const c=current();if(!c)return;const content=`# Centrale 112 — Dossier evento ${c.id}\n\n${c.answeredAt===null?'Evento da acquisire':c.title}\nEsportato alle ${clock(game.state.time)} del turno\n\n## Informazioni raccolte\n\n`+Object.entries(c.facts).map(([key,value])=>`- ${value} (${c.factMeta?.[key]?.source||'Fonte preesistente'}, ${Number.isFinite(c.factMeta?.[key]?.time)?clock(c.factMeta[key].time):'ora non registrata'})`).join('\n')+'\n\n## Note operatore\n\n'+(c.notes||[]).map(n=>`- ${clock(n.time)} — ${n.text}`).join('\n')+'\n\n## Cronologia\n\n'+c.history.map(m=>`- ${clock(m.time)} · ${m.role}: ${m.text}`).join('\n');const url=URL.createObjectURL(new Blob([content],{type:'text/markdown;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`Centrale112-Dossier-${c.id}.md`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  function attach(g){game=g;Object.assign(g.state,{activeComms:true,commsSeen:{},dossierDrafts:{},dossierOpen:true});Object.assign(g,{addNote,requestUpdate,briefUnits,toggleDossier,toggleActiveComms,openDispatch,dispatchFromPlan,exportDossier});el('dossier-panel')?.addEventListener('input',e=>{if(e.target.id==='dossier-note')g.state.dossierDrafts[e.target.dataset.caseId||g.state.caseId]=e.target.value;});el('dossier-panel')?.addEventListener('focusout',()=>{lastDossier='';});if(location.protocol==='file:'){document.body.classList.add('file-mode');el('launch-banner').hidden=false;}}
+  root.OperationsDesk={attach,render,tick,apply};
+})(globalThis);
