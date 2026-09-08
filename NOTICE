@@ -1,0 +1,22 @@
+CENTRALE 112 — THIRD-PARTY NOTICE
+Copyright (c) 2026 Luca Risso for original project materials.
+
+This repository does not include the optional local AI model or llama.cpp binaries.
+If users add those components independently, their own licenses apply.
+
+1. llama.cpp
+Project: https://github.com/ggml-org/llama.cpp
+License: MIT License
+Copyright: the ggml authors and other applicable contributors.
+
+2. Qwen3-4B-Instruct-2507
+Project/model: https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507
+License: Apache License 2.0
+Copyright and notices: as stated by the model publisher and applicable contributors.
+
+3. Quantized GGUF distributions
+Third-party quantizations, including community distributions, may contain their own
+notices, terms or metadata. Review the source page and license before redistribution.
+
+No license or trademark rights in third-party names are granted by the Centrale 112
+project. References are descriptive only.

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Se utilizzi o presenti Centrale 112 in un contesto consentito dalla licenza, attribuisci il progetto al suo creatore originale."
+title: "Centrale 112 — Sala operativa di Valdora"
+type: software
+authors:
+  - family-names: "Risso"
+    given-names: "Luca"
+url: "https://github.com/lucarisso07/centrale-112"
+repository-code: "https://github.com/lucarisso07/centrale-112"
+version: "7"
+date-released: "2026-09-08"

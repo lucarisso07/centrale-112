@@ -1,28 +1,29 @@
-# Runtime locale, mai nel repository
-/work/ai-runtime/
+# Local runtime / AI components
+work/ai-runtime/
+work/**/*.gguf
+work/**/access.key
+work/**/*.log
+work/**/centrale-processes.json
+
+# Large model/runtime artifacts
 *.gguf
-*.ggml
-*.key
-*.pem
-*.pfx
-*.p12
-*.log
-*.pid
-centrale-processes.json
+*.bin
+*.exe
+
+# Secrets / local settings
 .env
 .env.*
-!.env.example
+*.key
+*.pem
 
-# Dipendenze, editor e sistema
-node_modules/
-coverage/
-.vscode/
-.idea/
+# OS / editors
 .DS_Store
 Thumbs.db
-desktop.ini
+.vscode/
+.idea/
 
-# Archivi e file temporanei locali
+# Archives / temporary output
 *.zip
 *.7z
 *.tmp
+*.bak

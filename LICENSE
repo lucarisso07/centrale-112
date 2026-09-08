@@ -1,0 +1,101 @@
+CENTRALE 112 NON-COMMERCIAL ATTRIBUTION LICENSE 1.0
+Copyright (c) 2026 Luca Risso. All rights reserved.
+
+IMPORTANT: This is a source-available proprietary license. It is NOT an open-source license.
+
+1. OWNERSHIP
+The software, game design, original source code, original text, fictional scenarios,
+original interface, documentation and other original materials contained in this
+repository (collectively, the "Software") are protected by copyright and remain the
+property of Luca Risso ("Author"), except for third-party components expressly
+identified in the repository.
+
+2. LIMITED PERMISSION GRANTED
+Subject to full compliance with this License, the Author grants you a personal,
+non-exclusive, non-transferable, non-sublicensable license to:
+
+  a. download and run the Software free of charge;
+  b. make copies for personal, educational, study, testing or other non-commercial use;
+  c. modify the Software for non-commercial purposes; and
+  d. redistribute the original Software or a modified version free of charge,
+     only if all requirements in Section 3 are satisfied.
+
+No other rights are granted. All rights not expressly granted are reserved.
+
+3. ATTRIBUTION AND REDISTRIBUTION REQUIREMENTS
+Every permitted copy or modified version that is shared with another person must:
+
+  a. prominently credit "Luca Risso" as the original creator;
+  b. include the original repository link:
+     https://github.com/lucarisso07/centrale-112
+  c. keep this LICENSE file, all copyright notices, the NOTICE file and legal disclaimers;
+  d. clearly state that the version has been modified if changes were made;
+  e. identify the modifier separately and must not imply that modified code was authored,
+     approved or endorsed by Luca Risso unless the Author expressly states so in writing;
+  f. be distributed only free of charge and under terms no less restrictive than this License.
+
+Attribution must be reasonably visible wherever the Software is presented, distributed,
+documented or made available to users.
+
+4. STRICTLY PROHIBITED USES
+Without the Author's prior written permission, you may NOT:
+
+  a. sell, resell, rent, lease or otherwise charge money for the Software or any copy;
+  b. sell or charge for a modified version, derivative work or substantially similar package;
+  c. place the Software behind a paywall, subscription, paid download or paid-access service;
+  d. include the Software in a paid product, paid bundle, commercial service or monetized
+     distribution where the Software is a material part of the commercial offering;
+  e. sublicense, relicense or claim exclusive rights in the Software;
+  f. remove, hide, replace or misrepresent the Author's copyright or attribution;
+  g. represent yourself or another person as the original creator of the Software;
+  h. use the Software in a way that falsely suggests affiliation with, authorization by or
+     endorsement from emergency services, public authorities or the Author;
+  i. use the Software for operational emergency response, professional dispatch, medical,
+     police, fire-service or public-safety decision-making, or as certified training material.
+
+5. COMMERCIAL LICENSING
+Any commercial use requires a separate, express written license from Luca Risso.
+Making the current version available free of charge does not create a right to receive
+future versions, services, support, commercial rights or future releases free of charge.
+
+6. THIRD-PARTY COMPONENTS
+Third-party software, models, libraries, trademarks or other materials remain subject to
+their respective licenses and rights. This License applies only to material for which
+Luca Risso holds the applicable rights. See NOTICE.
+
+7. EMERGENCY-SERVICE DISCLAIMER
+Centrale 112 is a fictional entertainment simulation. It is not the real 112 service,
+not an emergency communication system, not affiliated with emergency authorities and not
+a substitute for official procedures, professional training or real-world instructions.
+In a real emergency, contact the competent emergency service through official channels.
+
+8. NO WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, ACCURACY, RELIABILITY, NON-INFRINGEMENT OR FITNESS FOR
+EMERGENCY, MEDICAL, POLICE, FIRE-SERVICE, TRAINING OR OPERATIONAL USE.
+
+9. LIMITATION OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AUTHOR SHALL NOT BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR OTHER DAMAGES ARISING FROM
+USE, MISUSE, INABILITY TO USE, MODIFICATION OR DISTRIBUTION OF THE SOFTWARE.
+
+10. TERMINATION
+The permissions granted by this License terminate automatically if you breach any term.
+After termination, you must stop all uses that depended on this License and cease any
+unauthorized distribution. Termination does not limit any rights or remedies available
+to the Author under applicable law.
+
+11. ENFORCEMENT AND APPLICABLE LAW
+Unauthorized use may constitute copyright infringement and/or breach of license. The
+Author reserves the right to seek all remedies available under applicable law, including
+injunctive relief, damages and recovery measures. Where the statutory requirements are
+met, applicable copyright law may also provide criminal or administrative sanctions.
+Nothing in this License states that every breach is automatically a criminal offence.
+
+12. NO WAIVER
+Failure or delay by the Author in enforcing a provision does not waive that provision or
+any other right.
+
+By exercising any permission granted in Section 2, you accept and agree to comply with
+this License.

@@ -1,15 +1,19 @@
-# Contribuire a Centrale 112
+# Contributi
 
-Creatore del progetto: **risso luca**.
+Centrale 112 è un progetto indipendente creato e mantenuto da **Luca Risso**.
 
-Per segnalare un problema usa il modulo Bug e descrivi i passaggi, la modalità di avvio, la domanda inviata e la risposta osservata. Per una proposta spiega cosa cambierebbe per il giocatore.
+## Issue
 
-Per una modifica al codice:
+Le segnalazioni di bug e le proposte possono essere aperte tramite GitHub Issues, se la funzione è abilitata.
 
-1. Crea un ramo dedicato.
-2. Intervieni sui sorgenti in `work`.
-3. Esegui i test pertinenti e `npm test`.
-4. Rigenera l’HTML con `npm run build` e verifica `npm run check:build`.
-5. Descrivi comportamento risultante e verifiche nella pull request.
+## Pull request
 
-Conserva i crediti del creatore. Non inserire file di `work/ai-runtime`, salvataggi personali o log completi. La documentazione tecnica è in [docs/SVILUPPO.md](docs/SVILUPPO.md).
+Le pull request possono essere valutate a discrezione del maintainer. Prima di investire molto tempo in una modifica sostanziale è consigliato aprire una issue e descrivere la proposta.
+
+L'invio di una pull request non cambia la titolarità del codice originale di Centrale 112 e non autorizza l'uso commerciale del progetto. Ogni contributo deve essere originale o legalmente utilizzabile dal contributore e non deve introdurre materiale di terze parti incompatibile con la licenza del repository.
+
+L'accettazione di un contributo non implica autorizzazione commerciale né trasferimento dei diritti sul progetto originale.
+
+## Fork e modifiche personali
+
+Sono consentiti nei limiti del file `LICENSE`: uso e modifiche non commerciali, attribuzione obbligatoria a Luca Risso, mantenimento degli avvisi legali e distribuzione soltanto gratuita alle condizioni previste.

@@ -1,4 +1,5 @@
-# Conserva i byte e i fine-riga della copia originale.
-* -text
-outputs/Centrale112.html linguist-generated=true
-docs/assets/*.svg linguist-documentation=true
+* text=auto
+*.cmd text eol=crlf
+*.cjs text eol=lf
+*.html text eol=lf
+*.md text eol=lf
