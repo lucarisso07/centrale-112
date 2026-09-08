@@ -1,0 +1,36 @@
+name: Segnala un problema
+description: Un comportamento del gioco non funziona come previsto.
+title: "[Bug] "
+body:
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Come hai avviato il gioco?
+      options:
+        - HTML aperto direttamente
+        - Avviatore con motore contestuale
+        - Avviatore con IA locale
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passaggi per riprodurre
+      description: Indica evento, azioni e domanda esatta se riguarda una chiamata.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Cosa è successo e cosa ti aspettavi?
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Sistema operativo, browser e versione del gioco
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Immagini o dettagli utili
+      description: Non includere chiavi, salvataggi personali o l’intera cartella ai-runtime.
